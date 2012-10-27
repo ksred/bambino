@@ -1,5 +1,5 @@
 <?php
-class Model_orders extends CI_Model
+class Model_stock extends CI_Model
 {
     function __construct()
     {
@@ -8,7 +8,7 @@ class Model_orders extends CI_Model
     }
     
     function add ($data) {
-        $this->db->insert("orders", $data);
+        $this->db->insert("items", $data);
         return $this->db->insert_id();
     }
     
@@ -31,22 +31,13 @@ class Model_orders extends CI_Model
 	}
 
 	function view_all ($user_id) {
-		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders_items.item_code as item, orders_items.description as description, orders_items.cost_price as cost, orders_items.retail_price as retail, customers.name as customer, orders.date as date, orders_items.quantity as quantity, orders.status as status');
+		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders_items.code as item_code, item.description as description, orders_items.cost as cost, orders_items.retail as retail, orders.date as date');
 		$this->db->from('orders');
 		$this->db->join('orders_items', 'orders.id = orders_items.order_id');
-		$this->db->join('customers_orders', 'orders.id = customers_orders.order_id');
-		$this->db->join('customers', 'customers_orders.customer_id = customers.id');
-		$this->db->where('orders.user_id', $user_id);
+		$this->db->where('user_id', $user_id);
 		$this->db->order_by('date desc');
 		$result = $this->db->get();
-		return $result;
-	}
-
-	function update_status ($user_id, $order_id, $status) {
-		$data = array ("id" => $order_id, "user_id" => $user_id);
-		$this->db->where($data);
-		$data = array("status" => $status);
-		$result = $this->db->update("orders", $data);
+		die($this->db->last_query());
 		return $result;
 	}
 }

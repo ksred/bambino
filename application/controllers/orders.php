@@ -27,11 +27,13 @@ class Orders extends CI_Controller {
 		$customer_details = $this->input->post("customer_details");
 		$note = $this->input->post("note");
 		$status = $this->input->post("status");
+		$site_order_id = $this->input->post("site_order_id");
 		$no_of_items = $this->input->post("item_total");
 		//Add data to orders table
 		$data = array(
 				"user_id" => $user_id,
-				"status" => $this->input->post("status")
+				"status" => $status,
+				"site_order_id" => $site_order_id 
 				);
 		$order_id = $this->Model_orders->add($data);
 		if (!$order_id) die("Died on the order insert bro");
@@ -46,7 +48,7 @@ class Orders extends CI_Controller {
 			$data = array(
 					"user_id" => $user_id,
 					"order_id" => $order_id,
-					"item_id" => $code,
+					"item_code" => $code,
 					"description" => $description,
 					"quantity" => $quantity,
 					"cost_price" => $cost,
@@ -63,8 +65,30 @@ class Orders extends CI_Controller {
 				"note" => $this->input->post("note")
 				);
 		$result_notes = $this->Model_orders->add_order_notes($data);
+		//Insert customer order
 		if (!$result_notes) die("Died on a result insert bro");
-		die('END');
+		redirect("/orders/view");
 	}
+
+	function view () {
+		$user_id = $this->session->userdata("id");
+		$orders = $this->Model_orders->view_all($user_id);
+		$data['orders'] = $orders;
+		$status_all = $this->Model_orders->get_all_status($user_id);
+		$data['status_all'] = $status_all->result();
+
+		$data['title'] = 'Bambino : Orders : All';
+		$this->load->view('orders/view', $data);
+	}
+	
+	function update_process () {
+		$status = $this->input->post('status');
+		$order_id = $this->input->post('order_id');
+		$user_id = $this->session->userdata("id");
+		$result = $this->Model_orders->update_status($user_id, $order_id, $status);
+		echo $result;
+	}
+	
+
 }
 
