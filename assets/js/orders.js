@@ -39,6 +39,21 @@ $(document).ready( function() {
 		}
 	});
 
+	$('#order_id').typeahead({
+		source : function(typeahead, query) {
+			$.ajax({
+				url: '/orders/search_id',
+				type: 'POST',
+				data: 'query=' + query,
+				dataType: 'JSON',
+				async: false,
+				success: function(data) {
+					typeahead.process(data);
+				}
+			})
+		}
+	});
+
 	//Updating orders
 	$('.update_order').click(function () {
 		var status = $(this).parent().parent().find('.order_status').val();
@@ -64,5 +79,8 @@ $(document).ready( function() {
 			}
 		})
 	});
+
+	//Model for adding user
+	$("#add_user").modal({ keyboard: true, show: false});
 
 });

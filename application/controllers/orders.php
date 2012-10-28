@@ -88,7 +88,17 @@ class Orders extends CI_Controller {
 		$result = $this->Model_orders->update_status($user_id, $order_id, $status);
 		echo $result;
 	}
-	
+
+	function search_id () {
+		$user_id = $this->session->userdata("id");
+		$order_id = $this->input->post("query");
+		$order_ids = $this->Model_orders->search_id($user_id, $order_id);
+		foreach ($order_ids->result() as $o) {
+			$orders_array[] = $o->site_order_id;
+		}
+		echo json_encode($orders_array);
+
+	}
 
 }
 

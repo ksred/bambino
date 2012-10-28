@@ -7,9 +7,10 @@
 	<input name="customer_name" type="text" data-provide="typeahead" id="customer_name"/>
 	<label>Customer delivery details</label>
 	<input type="text" name="customer_details" id="customer_details"/>
+	<a href="#add_user" role="button" class="btn" data-toggle="modal">Add user</a>
 
 	<label>Order ID (from site)</label>
-	<input type="text" name="site_order_id"/>
+	<input type="text" name="site_order_id" id="order_id"/>
 	<label>Notes</label>
 	<input type="text" name="note"/>
 	<label>Order status</label>
@@ -37,5 +38,18 @@
 	<br /><br />
 	<input type="submit" class="btn-primary btn-large" value="Add order"/>
 </form>
+
+<div id="add_user" role="dialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Add a user</h3>
+	</div>
+	<div class="modal-body">
+		Form goes here
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn">Close</a>
+	</div>
+</div>
 
 <?php $this->load->view("_template/footer.php"); ?>

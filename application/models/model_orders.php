@@ -49,5 +49,14 @@ class Model_orders extends CI_Model
 		$result = $this->db->update("orders", $data);
 		return $result;
 	}
+
+	function search_id ($user_id, $order_id) {
+		$this->db->select('*');
+		$this->db->from('orders');
+		$this->db->where('user_id', $user_id);
+		$this->db->where("site_order_id like '%$order_id%'");
+		$result = $this->db->get();
+		return $result;
+	}
 }
 ?>
