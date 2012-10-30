@@ -80,7 +80,15 @@ $(document).ready( function() {
 		})
 	});
 
-	//Model for adding user
+	//Modal for adding user
 	$("#add_user").modal({ keyboard: true, show: false});
 
+	function add_customer_js () {
+		var name = $('[name="customer_name"]');
+		var number = $('[name="customer_number"]');
+		var email = $('[name="customer_email"]');
+		var address = $('[name="customer_address"]');
+		alert(address);
+		return;
+	}
 });

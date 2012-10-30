@@ -45,10 +45,10 @@
 		<h3>Add a user</h3>
 	</div>
 	<div class="modal-body">
-		Form goes here
+		<?php $this->load->view("_template/add_customer.php"); ?>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn">Close</a>
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
 	</div>
 </div>
 
