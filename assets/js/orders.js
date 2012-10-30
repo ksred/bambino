@@ -39,7 +39,23 @@ $(document).ready( function() {
 		}
 	});
 
-	$('#order_id').typeahead({
+	$('.item_code').typeahead({
+		source : function(typeahead, query) {
+			$.ajax({
+				url: '/items/search_code',
+				type: 'POST',
+				data: 'query=' + query,
+				dataType: 'JSON',
+				async: false,
+				success: function(data) {
+					typeahead.process(data);
+				}
+			})
+		}
+	});
+
+
+/*	$('#order_id').typeahead({
 		source : function(typeahead, query) {
 			$.ajax({
 				url: '/orders/search_id',
@@ -53,7 +69,7 @@ $(document).ready( function() {
 			})
 		}
 	});
-
+*/
 	//Updating orders
 	$('.update_order').click(function () {
 		var status = $(this).parent().parent().find('.order_status').val();
@@ -82,13 +98,4 @@ $(document).ready( function() {
 
 	//Modal for adding user
 	$("#add_user").modal({ keyboard: true, show: false});
-
-	function add_customer_js () {
-		var name = $('[name="customer_name"]');
-		var number = $('[name="customer_number"]');
-		var email = $('[name="customer_email"]');
-		var address = $('[name="customer_address"]');
-		alert(address);
-		return;
-	}
 });

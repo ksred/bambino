@@ -1,5 +1,5 @@
 <?php
-class Model_customers extends CI_Model
+class Model_items extends CI_Model
 {
     function __construct()
     {
@@ -7,11 +7,11 @@ class Model_customers extends CI_Model
         $this->db = $this->load->database("default", TRUE);
     }
     
-	function search_name ($user_id, $name) {
-		$this->db->select('name');
-		$this->db->from('customers');
+	function search_code ($user_id, $code) {
+		$this->db->select('*');
+		$this->db->from('items');
 		$this->db->where('user_id', $user_id);
-		$this->db->where("name like '%$name%'");
+		$this->db->where("code like '%$code%'");
 		$result = $this->db->get();
 		return $result;
 	}
@@ -47,26 +47,5 @@ class Model_customers extends CI_Model
 		$result = $this->db->get();
 		return $result;
 	}
-	
-	function view ($user_id, $id) {
-		$this->db->select('*');
-		$this->db->from('customers');
-		$this->db->where('user_id', $user_id);
-		$this->db->where('id', $id);
-		$result = $this->db->get();
-		return $result;
-	}
-
-    function update ($data) {
-        $reuslt = $this->db->update("customers", $data);
-        return $result;
-    }
-
-    function delete ($data) {
-        $reuslt = $this->db->delete("customers", $data);
-        return $result;
-    }
-
-
 }
 ?>

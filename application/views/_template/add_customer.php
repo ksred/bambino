@@ -1,4 +1,4 @@
-<form method="post" action="customers/add_post/" class="form">
+<form method="post" action="/customers/add_post/" class="form">
 	<label>Name</label>
 	<input type="text" name="customer_name_add" />
 	<label>Contact Number</label>
@@ -26,7 +26,7 @@
 			success: function(data) {
 				$("#add_user").modal('hide');
 				$('[name="customer_name"]').val(data.name);
-				$('[name="customer_address"]').val(data.address);
+				$('[name="customer_details"]').val(data.address);
 			}
 		})
 		return;
