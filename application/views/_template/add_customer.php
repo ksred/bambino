@@ -25,8 +25,8 @@
 			async: false,
 			success: function(data) {
 				$("#add_user").modal('hide');
-				alert(data.address);
-				$('#customer_name').val(data.name);
+				$('[name="customer_name"]').val(data.name);
+				$('[name="customer_address"]').val(data.address);
 			}
 		})
 		return;

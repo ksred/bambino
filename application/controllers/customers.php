@@ -52,7 +52,7 @@ class Customers extends CI_Controller {
 			$customer_id = $this->Model_customers->add_customer($data);
 			$customer = $this->Model_customers->search_customer_by_id($user_id, $customer_id);
 			foreach ($customer->result() as $c) {
-				$customer_array[] = array("name" => $c->name, "address" => $c->delivery_address);
+				$customer_array = array("name" => $c->name, "address" => $c->delivery_address);
 			}
 			echo json_encode($customer_array);
 		else :
