@@ -34,9 +34,69 @@ class Model_items extends CI_Model
 		return $result;
 	}
 
+	function get_all_suppliers ($user_id) {
+		$this->db->select('*');
+		$this->db->from('suppliers');
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get();
+		return $result;
+	}
+
     function add_customer ($data) {
         $this->db->insert("customers", $data);
         return $this->db->insert_id();
+    }
+
+    function add ($data) {
+        $this->db->insert("items", $data);
+        return $this->db->insert_id();
+    }
+
+    function search_stockid_exact ($user_id, $stock_id) {
+		$this->db->select('*');
+		$this->db->from('items');
+		$this->db->where('user_id', $user_id);
+		$this->db->where('stock_id', $stock_id);
+		$result = $this->db->get();
+		return $result;
+	}
+
+    function search_stockid_itemid_exact ($stock_id, $id) {
+		$this->db->select('*');
+		$this->db->from('items');
+		$this->db->where('stock_id', $stock_id);
+		$this->db->where('id = '.$id);
+		$result = $this->db->get();
+		return $result;
+	}
+
+	function get_all ($user_id) {
+		$this->db->select("items.id as id, items.stock_id as stock_id, items.description as description, suppliers.name as supplier, suppliers.id as supplier_id, items.date as date");
+		$this->db->from("items");
+		$this->db->join("suppliers", "suppliers.id = items.supplier_id");
+		$this->db->where("items.user_id", $user_id);
+		$result = $this->db->get();
+		return $result;
+	}
+
+	function view ($user_id, $id) {
+		$this->db->select("*");
+		$this->db->from("items");
+		$this->db->where("user_id", $user_id);
+		$this->db->where("id", $id);
+		$result = $this->db->get();
+		return $result;
+	}
+
+    function update ($data, $id) {
+        $this->db->where("id", $id);
+        $result = $this->db->update("items", $data);
+        return $result;
+    }
+
+    function delete ($data) {
+        $result = $this->db->delete("items", $data);
+        return $result;
     }
 
 	function search_customer_by_id ($user_id, $id) {

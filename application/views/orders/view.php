@@ -12,7 +12,7 @@
 			<th>Description</th>
 			<th>Cost</th>
 			<th>Retail</th>
-			<td>Quantity</td>
+			<th>Quantity</th>
 			<th>Markup</th>
 			<th>Customer</th>
 			<th>Date</th>

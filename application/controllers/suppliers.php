@@ -5,6 +5,8 @@ class Suppliers extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model("Model_suppliers");
+		$user_id = $this->session->userdata("id");
+		if (!isset($user_id)) redirect(BASE_URL."login");
 	}
 
 	public function index()

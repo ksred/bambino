@@ -5,17 +5,21 @@ class Orders extends CI_Controller {
 	function __construct () {
 		parent::__construct();
 		$this->load->model("Model_orders");
+		$user_id = $this->session->userdata("id");
+		if (!isset($user_id)) redirect(BASE_URL."login");
 	}
 
 	public function index()
 	{
 		$data['title'] = "Orders";
+		$data['nav'] = "orders";
 		$this->load->view('orders/index');
 	}
 
 	public function add () {
 		$user_id = $this->session->userdata("id");
 		$data['title'] = "Bambino : Orders : Add";
+		$data['nav'] = "orders";
 		$status = $this->Model_orders->get_all_status($user_id);
 		$data['status'] = $status->result();
 		$this->load->view("orders/add", $data);
@@ -67,13 +71,14 @@ class Orders extends CI_Controller {
 		$result_notes = $this->Model_orders->add_order_notes($data);
 		//Insert customer order
 		if (!$result_notes) die("Died on a result insert bro");
-		redirect("/orders/view");
+		redirect(BASE_URL."orders/view");
 	}
 
 	function view () {
 		$user_id = $this->session->userdata("id");
 		$orders = $this->Model_orders->view_all($user_id);
 		$data['orders'] = $orders;
+		$data['nav'] = "orders";
 		$status_all = $this->Model_orders->get_all_status($user_id);
 		$data['status_all'] = $status_all->result();
 

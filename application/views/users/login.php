@@ -7,7 +7,8 @@
 	<input type="email" placeholder="princess@bubblegum.com" name="email" />
 	<label>Password bro:</label>
 	<input type="password" name="password" placeholder="passwordbro" />
-	<input type="submit" value="Login">
+	<br />
+	<input type="submit" class="btn btn-primary" value="Login">
 </form>
 
 <?php $this->load->view("_template/footer.php"); ?>

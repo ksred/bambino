@@ -11,5 +11,6 @@ class Dash extends CI_Controller {
 		$data['title'] = "Bambino";
 		$this->load->view('dash/index', $data);
 	}
+
 }
 

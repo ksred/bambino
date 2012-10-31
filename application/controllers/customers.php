@@ -6,11 +6,14 @@ class Customers extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("Model_customers");
+		$user_id = $this->session->userdata("id");
+		if (!isset($user_id)) redirect(BASE_URL."login");
 	}
 
 	public function index()
 	{
 		$data['title'] = "Bambindo : Customers";
+		$data['nav'] = "customers";
 		$this->load->view("customers/index", $data);
 	}
 
@@ -37,6 +40,7 @@ class Customers extends CI_Controller {
 	
 	public function add ($success = 0) {
 		$data['title'] = "Bambino : Add : Customer";
+		$data['nav'] = "customers";
 		$this->load->view("customers/add", $data);
 	}
 
@@ -103,6 +107,7 @@ class Customers extends CI_Controller {
 	}
 	
 	public function update ($id) {
+		$data['nav'] = "customers";
 		$user_id = $this->session->userdata("id");
 		$customer = $this->Model_customers->view($user_id, $id)->result();
 		$data['customer'] = $customer;

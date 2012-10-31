@@ -18,7 +18,7 @@
   </head>
 
   <body>
+    <div class="container">
     <header>
         <?php $this->load->view("_template/nav"); ?>
     </header>
-    <div class="container">
