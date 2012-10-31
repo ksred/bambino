@@ -58,5 +58,18 @@ class Model_orders extends CI_Model
 		$result = $this->db->get();
 		return $result;
 	}
+
+	function get_orders_by_customer ($user_id, $id) {
+		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders_items.item_code as item, orders_items.description as description, orders_items.cost_price as cost, orders_items.retail_price as retail, customers.name as customer, orders.date as date, orders_items.quantity as quantity, orders.status as status');
+		$this->db->from('orders');
+		$this->db->join('orders_items', 'orders.id = orders_items.order_id');
+		$this->db->join('customers_orders', 'orders.id = customers_orders.order_id');
+		$this->db->join('customers', 'customers_orders.customer_id = customers.id');
+		$this->db->where('orders.user_id', $user_id);
+		$this->db->where('customers_orders.customer_id', $id);
+		$this->db->order_by('date desc');
+		$result = $this->db->get();
+		return $result;
+	}
 }
 ?>

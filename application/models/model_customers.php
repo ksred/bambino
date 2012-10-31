@@ -57,13 +57,23 @@ class Model_customers extends CI_Model
 		return $result;
 	}
 
-    function update ($data) {
-        $reuslt = $this->db->update("customers", $data);
+	function get_all($user_id) {
+		$this->db->select('*');
+		$this->db->from('customers');
+		$this->db->where('user_id', $user_id);
+		$this->db->order_by('name');
+		$result = $this->db->get();
+		return $result;
+	}
+
+    function update ($data, $id) {
+    	$this->db->where("id", $id);
+        $result = $this->db->update("customers", $data);
         return $result;
     }
 
     function delete ($data) {
-        $reuslt = $this->db->delete("customers", $data);
+        $result = $this->db->delete("customers", $data);
         return $result;
     }
 

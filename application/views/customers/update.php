@@ -11,6 +11,7 @@
 	<input type="email" name="customer_email"  value="<?= $customer[0]->contact_email ?>" />
 	<label>Delivery Address</label>
 	<textarea type="text" name="customer_address" rows="5" /><?= $customer[0]->delivery_address ?></textarea>
+	<input type="hidden" value="<?= $customer[0]->id ?>" name="customer_id" />
 	<br />
 	<input type="submit" class="btn" value="Update Customer">
 	<a href="/customers/delete/<?= $customer[0]->id ?>" class="btn btn-danger">Delete</a>

@@ -117,6 +117,7 @@ class Customers extends CI_Controller {
 	}
 
 	public function update_process () {
+		$id = $this->input->post("customer_id");
 		$user_id = $this->session->userdata("id");
 		$name = $this->input->post("customer_name_add");
 		$number = $this->input->post("customer_number");
@@ -129,7 +130,7 @@ class Customers extends CI_Controller {
 			"contact_email" => $email,
 			"delivery_address" => $address
 		);
-		$result = $this->Model_customers->update($date);
+		$result = $this->Model_customers->update($data, $id);
 
 		if ($result) {
 			$this->session->set_flashdata("success", "1");
@@ -157,5 +158,15 @@ class Customers extends CI_Controller {
 			redirect(BASE_URL."customers/");
 		}
 	}
+	
+	public function view () {
+		$user_id = $this->session->userdata("id");
+		$data['title'] = "Bambino : Customers : View";
+		$data['nav'] = "items";
+		$customers = $this->Model_customers->get_all($user_id);
+		$data['customers'] = $customers->result();
+		$this->load->view("customers/view", $data);
+	}
+
 
 }

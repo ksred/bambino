@@ -105,5 +105,20 @@ class Orders extends CI_Controller {
 
 	}
 
+	function customer ($id) {
+		$user_id = $this->session->userdata("id");
+		$orders = $this->Model_orders->get_orders_by_customer($user_id, $id);
+		$this->load->model("Model_customers");
+		$customer = $this->Model_customers->view($user_id, $id);
+		$status_all = $this->Model_orders->get_all_status($user_id);
+		$data['status_all'] = $status_all->result();
+		$data['customer'] = $customer->result();
+		$data['orders'] = $orders->result();
+		$data['nav'] = "orders";
+		$data['title'] = "Bambino : Orders : Per Customer";
+
+		$this->load->view("orders/customer", $data);
+	}
+
 }
 
