@@ -19,7 +19,7 @@
 	</select>
 	<div class="order_item form-horizontal" data-itemid="1">
 		<label>Item 1: Code</label>
-		<input name="item[code]" type="text" class="item_code" data-provide="typeahead" data-itemid='1'/>
+		<input name="item1[code]" type="text" class="item_code" data-provide="typeahead" data-itemid='1'/>
 	</div>
 	<div id="add_item" class="btn">Add item</div>
 

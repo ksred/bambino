@@ -5,6 +5,7 @@
     <script src="<?= BASE_URL ?>assets/js/application.js"></script>
     <script src="<?= BASE_URL ?>assets/js/orders.js"></script>
     <script src="<?= BASE_URL ?>assets/js/typeahead.js"></script>
+    <script src="<?= BASE_URL ?>assets/js/typeahead.live.js"></script>
 
 </body>
 

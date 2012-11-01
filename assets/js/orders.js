@@ -4,7 +4,7 @@ $(document).ready( function() {
 	$('#add_item').click( function() {
 		item_id = parseInt(item_id) + 1;
 		$('.order_item').append(
-			'<label>Item '+item_id+': Code</label><input name="item'+item_id+'[code]" type="text" class="item_code"/>'	
+			'<label>Item '+item_id+': Code</label><input name="item'+item_id+'[code]" type="text" class="item_code" data-provide="typeahead" data-itemid="' + item_id + '"/>'	
 		);
 		$('#item_total').val(item_id);
 	});
@@ -39,19 +39,21 @@ $(document).ready( function() {
 		}
 	});
 
-	$('[name="item[code]"]').typeahead({
-		source : function(typeahead, query) {
-			$.ajax({
-				url: '/items/search_code',
-				type: 'POST',
-				data: 'query=' + query,
-				dataType: 'JSON',
-				async: false,
-				success: function(data) {
-					typeahead.process(data);
-				}
-			})
-		}
+	$('[name*="[code]"]').livequery( function() {
+		$(this).typeahead({
+			source : function(typeahead, query) {
+				$.ajax({
+					url: '/items/search_code',
+					type: 'POST',
+					data: 'query=' + query,
+					dataType: 'JSON',
+					async: false,
+					success: function(data) {
+						typeahead.process(data);
+					}
+				})
+			}
+		})
 	});
 
 
