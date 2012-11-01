@@ -125,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `emails_theme` (
 CREATE TABLE IF NOT EXISTS `items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `code` varchar(50) NOT NULL,
+  `stock_id` varchar(50) NOT NULL,
   `description` varchar(200) NOT NULL,
   `supplier_id` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,

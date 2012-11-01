@@ -5,8 +5,6 @@
 <form method="post" action="/orders/add_process">
 	<label>Customer name</label>
 	<input name="customer_name" type="text" data-provide="typeahead" id="customer_name"/>
-	<label>Customer delivery details</label>
-	<input type="text" name="customer_details" data-provide="typeahead" id="customer_details"/>
 	<a href="#add_user" role="button" class="btn" data-toggle="modal">Add user</a>
 
 	<label>Order ID (from site)</label>
@@ -20,17 +18,8 @@
 	<?php endforeach; ?>
 	</select>
 	<div class="order_item form-horizontal" data-itemid="1">
-		<h3>Item 1:</h3>
-		<label>Code</label>
-		<input name="item1[code]" type="text" class="item_code" data-provide="typeahead" data-itemid='1'/>
-		<label>Description</label>
-		<input name="item1[desc]" type="text" class="item+desc" data-provide="typeahead" />
-		<label>Quantity</label>
-		<input type="number" name="item1[quantity]" class="item_quantity" data-provide="typeahead" />
-		<label>Cost</label>
-		<input type="number" name="item1[cost]" class="item_cost" data-provide="typeahead" />
-		<label>Retail</label>
-		<input type="number" name="item1[retail]" class="item_retail" data-provide="typeahead" />
+		<label>Item 1: Code</label>
+		<input name="item[code]" type="text" class="item_code" data-provide="typeahead" data-itemid='1'/>
 	</div>
 	<div id="add_item" class="btn">Add item</div>
 

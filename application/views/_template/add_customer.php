@@ -26,7 +26,6 @@
 			success: function(data) {
 				$("#add_user").modal('hide');
 				$('[name="customer_name"]').val(data.name);
-				$('[name="customer_details"]').val(data.address);
 			}
 		})
 		return;

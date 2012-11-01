@@ -18,13 +18,12 @@ class Items extends CI_Controller {
 
 	public function search_code() {
 		$user_id = $this->session->userdata("id");
-		die(var_dump($_POST));
-		$name = $this->input->post("customer_name");
-		$customers = $this->Model_customers->search_name($user_id, $name);
-		foreach ($customers->result() as $c) {
-			$customers_array[] = $c->name;
+		$item_code = $this->input->post("item[code]");
+		$item = $this->Model_items->search_code($user_id, $item_code);
+		foreach ($item->result() as $i) {
+			$items_array[] = $i->stock_id;
 		}
-		echo json_encode($customers_array);
+		echo json_encode($items_array);
 	}
 
 	public function add () {

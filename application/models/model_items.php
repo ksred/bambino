@@ -11,7 +11,7 @@ class Model_items extends CI_Model
 		$this->db->select('*');
 		$this->db->from('items');
 		$this->db->where('user_id', $user_id);
-		$this->db->where("code like '%$code%'");
+		$this->db->where("stock_id like '%$code%'");
 		$result = $this->db->get();
 		return $result;
 	}

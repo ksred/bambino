@@ -4,7 +4,7 @@ $(document).ready( function() {
 	$('#add_item').click( function() {
 		item_id = parseInt(item_id) + 1;
 		$('.order_item').append(
-			'<h3>Item '+item_id+':</h3><label>Code</label><input name="item'+item_id+'[code]" type="text" class="item_code"/><label>Description</label><input name="item'+item_id+'[desc]" type="text" class="item_desc"/><label>Quantity</label><input type="number" name="item'+item_id+'[quantity]" class="item_quantity"/><label>Cost</label><input type="number" name="item'+item_id+'[cost]" class="item_cost"/><label>Retail</label><input type="number" name="item'+item_id+'[retail]" class="item_retail"/>'	
+			'<label>Item '+item_id+': Code</label><input name="item'+item_id+'[code]" type="text" class="item_code"/>'	
 		);
 		$('#item_total').val(item_id);
 	});
@@ -39,7 +39,7 @@ $(document).ready( function() {
 		}
 	});
 
-	$('.item_code').typeahead({
+	$('[name="item[code]"]').typeahead({
 		source : function(typeahead, query) {
 			$.ajax({
 				url: '/items/search_code',
