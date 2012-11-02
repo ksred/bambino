@@ -50,8 +50,7 @@ class Orders extends CI_Controller {
 			$data = array(
 					"user_id" => $user_id,
 					"order_id" => $order_id,
-					"item_id" => $item_id[0]->id,
-					"quantity" => $quantity,
+					"item_id" => $item_id[0]->id
 				);
 			$result_item = $this->Model_orders->add_order_items($data);
 			if (!$result_item) die("Died on an item insert bro");
@@ -65,7 +64,8 @@ class Orders extends CI_Controller {
 					"orders_items_id" => $orders_items_id,
 					"details" => '(none)',
 					"cost" => 0,
-					"retail" => 0
+					"retail" => 0,
+					"quantity" => $quantity,
 					);
 			$result_item_meta = $this->Model_items->add_item_meta($data);
 			if (!$result_item_meta) die("Died on item meta insert bro");

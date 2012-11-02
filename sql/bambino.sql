@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2012 at 02:17 PM
+-- Generation Time: Nov 02, 2012 at 03:25 PM
 -- Server version: 5.5.24
 -- PHP Version: 5.3.14
 
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `supplier_id` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `items`
@@ -161,6 +161,7 @@ CREATE TABLE IF NOT EXISTS `items_meta` (
   `order_id` int(11) NOT NULL,
   `orders_items_id` int(11) NOT NULL,
   `details` varchar(100) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `cost` int(11) NOT NULL,
   `retail` int(11) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -171,11 +172,11 @@ CREATE TABLE IF NOT EXISTS `items_meta` (
 -- Dumping data for table `items_meta`
 --
 
-INSERT INTO `items_meta` (`id`, `user_id`, `item_id`, `stock_id`, `order_id`, `orders_items_id`, `details`, `cost`, `retail`, `date`) VALUES
-(1, 1, 1, 'it001', 1, 1, 'size L', 0, 0, '2012-11-02 12:03:21'),
-(2, 1, 2, 'it002', 1, 2, '(none)', 0, 0, '2012-11-02 12:03:22'),
-(3, 1, 1, 'it001', 2, 3, 'Size M', 0, 0, '2012-11-02 12:11:56'),
-(4, 1, 2, 'it002', 2, 4, '(none)', 0, 0, '2012-11-02 12:11:56');
+INSERT INTO `items_meta` (`id`, `user_id`, `item_id`, `stock_id`, `order_id`, `orders_items_id`, `details`, `quantity`, `cost`, `retail`, `date`) VALUES
+(1, 1, 1, 'it001', 1, 1, 'size L', 0, 0, 0, '2012-11-02 12:03:21'),
+(2, 1, 2, 'it002', 1, 2, '(none)', 0, 0, 0, '2012-11-02 12:03:22'),
+(3, 1, 1, 'it001', 2, 3, 'Size M', 0, 0, 0, '2012-11-02 12:11:56'),
+(4, 1, 2, 'it002', 2, 4, '(none)', 0, 0, 0, '2012-11-02 12:11:56');
 
 -- --------------------------------------------------------
 
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
 
 INSERT INTO `orders` (`id`, `site_order_id`, `user_id`, `status`, `date`) VALUES
 (1, 'tr001', 1, 1, '2012-11-02 12:03:21'),
-(2, 'tr002', 1, 1, '2012-11-02 12:11:56');
+(2, 'tr002', 1, 2, '2012-11-02 12:11:56');
 
 -- --------------------------------------------------------
 
@@ -211,9 +212,6 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
   `user_id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `cost_price` float NOT NULL,
-  `retail_price` float NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -221,11 +219,11 @@ CREATE TABLE IF NOT EXISTS `orders_items` (
 -- Dumping data for table `orders_items`
 --
 
-INSERT INTO `orders_items` (`id`, `user_id`, `order_id`, `item_id`, `quantity`, `cost_price`, `retail_price`) VALUES
-(1, 1, 1, 1, 1, 0, 0),
-(2, 1, 1, 2, 4, 0, 0),
-(3, 1, 2, 1, 3, 0, 0),
-(4, 1, 2, 2, 6, 0, 0);
+INSERT INTO `orders_items` (`id`, `user_id`, `order_id`, `item_id`) VALUES
+(1, 1, 1, 1),
+(2, 1, 1, 2),
+(3, 1, 2, 1),
+(4, 1, 2, 2);
 
 -- --------------------------------------------------------
 

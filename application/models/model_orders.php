@@ -36,9 +36,10 @@ class Model_orders extends CI_Model
 	}
 
 	function view_all ($user_id) {
-		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders_items.item_code as item, orders_items.description as description, orders_items.cost_price as cost, orders_items.retail_price as retail, customers.name as customer, orders.date as date, orders_items.quantity as quantity, orders.status as status');
+		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, items.stock_id as item, orders_items.description as description, orders_items.cost_price as cost, orders_items.retail_price as retail, customers.name as customer, orders.date as date, orders_items.quantity as quantity, orders.status as status');
 		$this->db->from('orders');
 		$this->db->join('orders_items', 'orders.id = orders_items.order_id');
+		$this->db->join('items', 'orders_items.item_id = items.id');
 		$this->db->join('customers_orders', 'orders.id = customers_orders.order_id');
 		$this->db->join('customers', 'customers_orders.customer_id = customers.id');
 		$this->db->where('orders.user_id', $user_id);
@@ -59,9 +60,10 @@ class Model_orders extends CI_Model
 	}
 
 	function items_per_order ($user_id, $order_id) {
-		$this->db->select('orders_items.id as oi_id, orders_items.quantity as quantity, items.description as description');
+		$this->db->select('orders_items.id as oi_id, items_meta.quantity as quantity, items.description as description, items.stock_id as stock_id');
 		$this->db->from('orders_items');
 		$this->db->join('items', 'items.id = orders_items.item_id');
+		$this->db->join('items_meta', 'orders_items.id = items_meta.orders_items_id');
 		$this->db->where('orders_items.user_id', $user_id);
 		$this->db->where('orders_items.order_id', $order_id);
 		$result = $this->db->get();
@@ -104,9 +106,8 @@ class Model_orders extends CI_Model
 	}
 
 	function get_orders_by_customer ($user_id, $id) {
-		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders_items.item_code as item, orders_items.description as description, orders_items.cost_price as cost, orders_items.retail_price as retail, customers.name as customer, orders.date as date, orders_items.quantity as quantity, orders.status as status');
+		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders.user_id as user_id, customers.name as customer, orders.date as date, orders.status as status');
 		$this->db->from('orders');
-		$this->db->join('orders_items', 'orders.id = orders_items.order_id');
 		$this->db->join('customers_orders', 'orders.id = customers_orders.order_id');
 		$this->db->join('customers', 'customers_orders.customer_id = customers.id');
 		$this->db->where('orders.user_id', $user_id);
