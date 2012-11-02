@@ -79,6 +79,17 @@ class Model_orders extends CI_Model
 		return $result;
 	}
 
+	function get_latest_prices($user_id, $item_id) {
+		$this->db->select('*');
+		$this->db->from('items_meta');
+		$this->db->where('user_id', $user_id);
+		$this->db->where('item_id', $item_id);
+		$this->db->limit(1);
+		$this->db->order_by('id desc');
+		$result = $this->db->get();
+		return $result;
+	}
+
 	function item_meta_orders_items ($user_id, $orders_items_id) {
 		$this->db->select('*');
 		$this->db->from('items_meta');
@@ -96,6 +107,13 @@ class Model_orders extends CI_Model
 		return $result;
 	}
 
+	function update_item_meta ($user_id, $item_meta_id, $data) {
+		$data_where = array ("id" => $item_meta_id, "user_id" => $user_id);
+		$this->db->where($data_where);
+		$result = $this->db->update("items_meta", $data);
+		return $result;
+	}
+
 	function search_id ($user_id, $order_id) {
 		$this->db->select('*');
 		$this->db->from('orders');
@@ -105,6 +123,16 @@ class Model_orders extends CI_Model
 		return $result;
 	}
 
+	function get_order ($user_id, $id) {
+		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders.user_id as user_id, orders.date as date, orders.status as status');
+		$this->db->from('orders');
+		$this->db->where('user_id', $user_id);
+		$this->db->where('id', $id);
+		$this->db->order_by('date desc');
+		$result = $this->db->get();
+		return $result;
+	}
+    
 	function get_orders_by_customer ($user_id, $id) {
 		$this->db->select('orders.id as id, orders.site_order_id as site_order_id, orders.user_id as user_id, customers.name as customer, orders.date as date, orders.status as status');
 		$this->db->from('orders');

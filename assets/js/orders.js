@@ -98,6 +98,34 @@ $(document).ready( function() {
 		})
 	});
 
+	//Updating order item
+	$('.update_order_item').click(function () {
+		var cost = $(this).parent().parent().find('[name="item_cost"]').val();
+		var retail = $(this).parent().parent().find('[name="item_retail"]').val();
+		var quantity = $(this).parent().parent().find('[name="item_quantity"]').val();
+		var order_item_id = $(this).attr('data-order-itemid');
+		$.ajax({
+			url: '/orders/update_item_process',
+			type: 'POST',
+			data: 'cost=' + cost + '&retail=' + retail + '&quantity=' + quantity + '&order_item_id=' + order_item_id,
+			dataType: 'JSON',
+			async: false,
+			success: function(data) {
+				if (data == 1) {
+					$("#success").fadeIn();
+					setTimeout(function() {
+						$("#success").fadeOut();
+						}, 10000);
+				} else {
+					$("#failure").fadeIn();
+					setTimeout(function() {
+						$("#failure").fadeOut();
+						}, 10000);
+				}
+			}
+		})
+	});
+
 	//Modal for adding user
 	$("#add_user").modal({ keyboard: true, show: false});
 });

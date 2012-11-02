@@ -56,6 +56,8 @@ class Orders extends CI_Controller {
 			if (!$result_item) die("Died on an item insert bro");
 			$orders_items_id = $result_item;
 			//Insert item meta 
+			//Get latest values from db for items
+			$item_details_cr = $this->Model_orders->get_latest_prices($user_id, $item_id[0]->id)->result();
 			$data = array (
 					"user_id" => $user_id,
 					"item_id" => $item_id[0]->id,
@@ -63,8 +65,8 @@ class Orders extends CI_Controller {
 					"order_id" => $order_id,
 					"orders_items_id" => $orders_items_id,
 					"details" => '(none)',
-					"cost" => 0,
-					"retail" => 0,
+					"cost" => $item_details_cr[0]->cost,
+					"retail" => $item_details_cr[0]->retail,
 					"quantity" => $quantity,
 					);
 			$result_item_meta = $this->Model_items->add_item_meta($data);
@@ -111,6 +113,21 @@ class Orders extends CI_Controller {
 		echo $result;
 	}
 
+	function update_item_process () {
+		$cost = $this->input->post('cost');
+		$retail = $this->input->post('retail');
+		$quantity = $this->input->post('quantity');
+		$order_item_id = $this->input->post('order_item_id');
+		$user_id = $this->session->userdata("id");
+		$data = array (
+				"cost" => $cost,
+				"retail" => $retail,
+				"quantity" => $quantity
+		);
+		$result = $this->Model_orders->update_item_meta($user_id, $order_item_id, $data);
+		echo $result;
+	}
+
 	function search_id () {
 		$user_id = $this->session->userdata("id");
 		$order_id = $this->input->post("query");
@@ -135,6 +152,18 @@ class Orders extends CI_Controller {
 		$data['title'] = "Bambino : Orders : Per Customer";
 
 		$this->load->view("orders/customer", $data);
+	}
+
+	function update ($id) {
+		$user_id = $this->session->userdata("id");
+		$orders = $this->Model_orders->get_order($user_id, $id);
+		$status_all = $this->Model_orders->get_all_status($user_id);
+		$data['status_all'] = $status_all->result();
+		$data['orders'] = $orders->result();
+		$data['nav'] = "orders";
+		$data['title'] = "Bambino : Orders : Update";
+
+		$this->load->view("orders/update", $data);
 	}
 
 }
