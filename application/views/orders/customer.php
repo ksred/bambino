@@ -34,10 +34,10 @@
 		<tr>
 			<td><?= $oi->stock_id ?></td>
 			<td><?= $oi->description ?></td>
-			<td><?= $order_meta[0]->cost ?></td>
-			<td><?= $order_meta[0]->retail ?></td>
-			<td><?= $order_meta[0]->quantity ?></td>
-			<td><?= (($order_meta[0]->retail - $order_meta[0]->cost) * (int) $order_meta[0]->quantity) ?></td>
+			<td><input name="item_cost" type="text" value="<?= $order_meta[0]->cost ?>" class="input-small" ></td>
+			<td><input name="item_retail" type="text" value="<?= $order_meta[0]->retail ?>" class="input-small" ></td>
+			<td><input name="item_quantity" type="text" value="<?= $order_meta[0]->quantity ?>" class="input-small" ></td>
+			<td><input type="text" readonly value="<?= (($order_meta[0]->retail - $order_meta[0]->cost) * (int) $order_meta[0]->quantity) ?>" class="input-small" ></td>
 			<td>
 				<?= "Item status" ?>
 			</td>
