@@ -48,6 +48,15 @@ class Model_customers extends CI_Model
 		return $result;
 	}
 	
+	function search_customer_by_name ($user_id, $name) {
+		$this->db->select('*');
+		$this->db->from('customers');
+		$this->db->where('user_id', $user_id);
+		$this->db->where('name', $name);
+		$result = $this->db->get();
+		return $result;
+	}
+	
 	function view ($user_id, $id) {
 		$this->db->select('*');
 		$this->db->from('customers');

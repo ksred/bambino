@@ -5,6 +5,7 @@ class Orders extends CI_Controller {
 	function __construct () {
 		parent::__construct();
 		$this->load->model("Model_orders");
+		$this->load->model("Model_items");
 		$user_id = $this->session->userdata("id");
 		if (!isset($user_id)) redirect(BASE_URL."login");
 	}
@@ -28,7 +29,6 @@ class Orders extends CI_Controller {
 	public function add_process () {
 		$user_id = $this->session->userdata("id");
 		$customer_name = $this->input->post("customer_name");
-		$customer_details = $this->input->post("customer_details");
 		$note = $this->input->post("note");
 		$status = $this->input->post("status");
 		$site_order_id = $this->input->post("site_order_id");
@@ -45,22 +45,30 @@ class Orders extends CI_Controller {
 		for ($i=1; $i <= $no_of_items; $i++) :
 			$item = $this->input->post("item".$i);
 			$code = $item['code'];
-			$description = $item['desc'];
 			$quantity = (int) $item['quantity'];
-			$cost = (float) $item['cost'];
-			$retail = (float) $item['retail'];
+			$item_id = $this->Model_items->search_code($user_id, $code)->result();
 			$data = array(
 					"user_id" => $user_id,
 					"order_id" => $order_id,
-					"item_code" => $code,
-					"description" => $description,
+					"item_id" => $item_id[0]->id,
 					"quantity" => $quantity,
-					"cost_price" => $cost,
-					"retail_price" => $retail
 				);
 			$result_item = $this->Model_orders->add_order_items($data);
-			var_dump($result_item);
 			if (!$result_item) die("Died on an item insert bro");
+			$orders_items_id = $result_item;
+			//Insert item meta 
+			$data = array (
+					"user_id" => $user_id,
+					"item_id" => $item_id[0]->id,
+					"stock_id" => $item_id[0]->stock_id,
+					"order_id" => $order_id,
+					"orders_items_id" => $orders_items_id,
+					"details" => '(none)',
+					"cost" => 0,
+					"retail" => 0
+					);
+			$result_item_meta = $this->Model_items->add_item_meta($data);
+			if (!$result_item_meta) die("Died on item meta insert bro");
 		endfor;
 		//Add data to orders_notes table
 		$data = array(
@@ -70,13 +78,22 @@ class Orders extends CI_Controller {
 				);
 		$result_notes = $this->Model_orders->add_order_notes($data);
 		//Insert customer order
-		if (!$result_notes) die("Died on a result insert bro");
+		$this->load->model("Model_customers");
+		$customer = $this->Model_customers->search_customer_by_name($user_id, $customer_name)->result();
+		if (!$customer) die("Couldn't find the customer. Weird right");
+		$data = array (
+				"user_id" => $user_id,
+				"customer_id" => $customer[0]->id,
+				"order_id" => $order_id
+				);
+		$result_customer_order = $this->Model_orders->add_order_customer($data);
+		if (!$result_customer_order) die("Died on a customer result insert bro");
 		redirect(BASE_URL."orders/view");
 	}
 
 	function view () {
 		$user_id = $this->session->userdata("id");
-		$orders = $this->Model_orders->view_all($user_id);
+		$orders = $this->Model_orders->orders_per_user($user_id);
 		$data['orders'] = $orders;
 		$data['nav'] = "orders";
 		$status_all = $this->Model_orders->get_all_status($user_id);

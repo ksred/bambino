@@ -12,11 +12,13 @@ class Suppliers extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = "Bambino : Suppliers";
+		$data['nav'] = "suppliers";
 		$this->load->view('suppliers/index', $data);
 	}
 	
 	public function add ($success = 0) {
 		$data['title'] = "Bambino : Add : Supplier";
+		$data['nav'] = "suppliers";
 		$this->load->view("suppliers/add", $data);
 	}
 
@@ -24,6 +26,7 @@ class Suppliers extends CI_Controller {
 		$user_id = $this->session->userdata("id");
 		$supplier = $this->Model_suppliers->view_all($user_id);
 		$data['suppliers'] = $supplier;
+		$data['nav'] = "suppliers";
 
 		$data['title'] = 'Bambino : Suppliers : All';
 		$this->load->view('suppliers/view', $data);
@@ -33,6 +36,7 @@ class Suppliers extends CI_Controller {
 		$user_id = $this->session->userdata("id");
 		$supplier = $this->Model_suppliers->view($user_id, $id)->result();
 		$data['supplier'] = $supplier;
+		$data['nav'] = "suppliers";
 
 		$data['title'] = 'Bambino : Suppliers : All';
 		$this->load->view('suppliers/update', $data);

@@ -52,6 +52,11 @@ class Model_items extends CI_Model
         return $this->db->insert_id();
     }
 
+    function add_item_meta ($data) {
+        $this->db->insert("items_meta", $data);
+        return $this->db->insert_id();
+    }
+
     function search_stockid_exact ($user_id, $stock_id) {
 		$this->db->select('*');
 		$this->db->from('items');

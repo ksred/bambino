@@ -38,6 +38,8 @@ class Items extends CI_Controller {
 	public function add_process () {
 		$stock_id = $this->input->post('stock_id');
 		$stock_desc = $this->input->post('stock_desc');
+		$stock_cost = $this->input->post('stock_cost');
+		$stock_retail = $this->input->post('stock_retail');
 		$stock_supplier = $this->input->post('stock_supplier');
 		$user_id = $this->session->userdata("id");
 		$data = array(
@@ -50,8 +52,8 @@ class Items extends CI_Controller {
 		$num = $item_exists->num_rows();
 		
 		if ($num < 1) {
-			$result = $this->Model_items->add($data);
-			if ($result) {
+			$item_id = $this->Model_items->add($data);
+			if ($item_id) {
 				$this->session->set_flashdata("success", "1");
 				$this->session->set_flashdata("msg", "Item added successfully!");
 				redirect(BASE_URL."items/");

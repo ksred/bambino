@@ -18,8 +18,9 @@
 	<?php endforeach; ?>
 	</select>
 	<div class="order_item form-horizontal" data-itemid="1">
-		<label>Item 1: Code</label>
-		<input name="item1[code]" type="text" class="item_code" data-provide="typeahead" data-itemid='1'/>
+		<label>Item 1:</label>
+		<input name="item1[code]" type="text" placeholder="Code" class="item_code" data-provide="typeahead" data-itemid='1'/>
+		<input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity" data-itemid='1'/>
 	</div>
 	<div id="add_item" class="btn">Add item</div>
 

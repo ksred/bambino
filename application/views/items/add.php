@@ -6,7 +6,11 @@
 	<label>Stock ID</label>
 	<input type="text" name="stock_id" />
 	<label>Description</label>
-	<input type="number" name="stock_desc" />
+	<input type="text" name="stock_desc" />
+	<label>Cost</label>
+	<input type="number" name="stock_cost" />
+	<label>Retail</label>
+	<input type="number" name="stock_retail" />
 	<label>Supplier</label>
 	<select name="stock_supplier">
 		<?php foreach ($suppliers as $s) : ?>

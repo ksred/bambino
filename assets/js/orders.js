@@ -4,7 +4,7 @@ $(document).ready( function() {
 	$('#add_item').click( function() {
 		item_id = parseInt(item_id) + 1;
 		$('.order_item').append(
-			'<label>Item '+item_id+': Code</label><input name="item'+item_id+'[code]" type="text" class="item_code" data-provide="typeahead" data-itemid="' + item_id + '"/>'	
+			'<label>Item '+item_id+':</label><input name="item'+item_id+'[code]" type="text" class="item_code" data-provide="typeahead" placeholder="Code" data-itemid="' + item_id + '"/><input name="item'+item_id+'[quantity]" type="number" class="item_quantity" placeholder="Quantity" data-itemid="'+item_id+'"/>'	
 		);
 		$('#item_total').val(item_id);
 	});
