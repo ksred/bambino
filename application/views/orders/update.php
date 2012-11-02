@@ -22,6 +22,7 @@
 			<th>Retail</th>
 			<th>Quantity</th>
 			<th>Markup</th>
+			<th>Details</th>
 			<th>Status</th>
 			<th>Edit</th>
 		</tr>
@@ -37,6 +38,7 @@
 			<td><input name="item_retail" type="text" value="<?= $order_meta[0]->retail ?>" class="input-small" ></td>
 			<td><input name="item_quantity" type="text" value="<?= $order_meta[0]->quantity ?>" class="input-small" ></td>
 			<td><input type="text" readonly value="<?= (($order_meta[0]->retail - $order_meta[0]->cost) * (int) $order_meta[0]->quantity) ?>" class="input-small" ></td>
+			<td><input name="item_details" type="text" value="<?= $order_meta[0]->details ?>" ></td>
 			<td>
 				<?= "Item status" ?>
 			</td>
@@ -45,7 +47,7 @@
 			<td>
 			</td>
 			<td>
-				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>">Update Item</span>
+				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>">Update</span>
 			</td>
 			<?php $site_order_id = $o->site_order_id; ?>
 		</tr>

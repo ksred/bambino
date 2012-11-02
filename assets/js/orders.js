@@ -103,11 +103,12 @@ $(document).ready( function() {
 		var cost = $(this).parent().parent().find('[name="item_cost"]').val();
 		var retail = $(this).parent().parent().find('[name="item_retail"]').val();
 		var quantity = $(this).parent().parent().find('[name="item_quantity"]').val();
+		var details = $(this).parent().parent().find('[name="item_details"]').val();
 		var order_item_id = $(this).attr('data-order-itemid');
 		$.ajax({
 			url: '/orders/update_item_process',
 			type: 'POST',
-			data: 'cost=' + cost + '&retail=' + retail + '&quantity=' + quantity + '&order_item_id=' + order_item_id,
+			data: 'cost=' + cost + '&retail=' + retail + '&quantity=' + quantity + '&details=' + details + '&order_item_id=' + order_item_id,
 			dataType: 'JSON',
 			async: false,
 			success: function(data) {

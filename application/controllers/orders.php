@@ -117,11 +117,13 @@ class Orders extends CI_Controller {
 		$cost = $this->input->post('cost');
 		$retail = $this->input->post('retail');
 		$quantity = $this->input->post('quantity');
+		$details = $this->input->post('details');
 		$order_item_id = $this->input->post('order_item_id');
 		$user_id = $this->session->userdata("id");
 		$data = array (
 				"cost" => $cost,
 				"retail" => $retail,
+				"details" => $details,
 				"quantity" => $quantity
 		);
 		$result = $this->Model_orders->update_item_meta($user_id, $order_item_id, $data);
