@@ -7,7 +7,7 @@ class Orders extends CI_Controller {
 		$this->load->model("Model_orders");
 		$this->load->model("Model_items");
 		$user_id = $this->session->userdata("id");
-		if (!isset($user_id)) redirect(BASE_URL."login");
+		if (!$user_id) redirect(BASE_URL."login");
 	}
 
 	public function index()

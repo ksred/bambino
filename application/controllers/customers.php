@@ -7,7 +7,7 @@ class Customers extends CI_Controller {
 		parent::__construct();
 		$this->load->model("Model_customers");
 		$user_id = $this->session->userdata("id");
-		if (!isset($user_id)) redirect(BASE_URL."login");
+		if (!$user_id) redirect(BASE_URL."login");
 	}
 
 	public function index()

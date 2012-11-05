@@ -4,6 +4,8 @@ class Dash extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
+		$user_id = $this->session->userdata("id");
+		if (!$user_id) redirect(BASE_URL."login");
 	}
 
 	public function index()
