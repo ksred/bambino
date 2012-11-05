@@ -2,31 +2,39 @@
 
 <h2>Add an order</h2>
 
-<form method="post" action="/orders/add_process">
-	<label>Customer name</label>
-	<input name="customer_name" type="text" data-provide="typeahead" id="customer_name"/>
-	<a href="#add_user" role="button" class="btn" data-toggle="modal">Add user</a>
-
-	<label>Order ID (from site)</label>
-	<input type="text" name="site_order_id" id="order_id"/>
-	<label>Notes</label>
-	<input type="text" name="note"/>
-	<label>Order status</label>
-	<select name="status">
-	<?php foreach ($status as $s) : ?>
-		<option value="<?= $s->id ?>"><?= $s->status ?></option>
-	<?php endforeach; ?>
-	</select>
-	<div class="order_item form-horizontal" data-itemid="1">
-		<label>Item 1:</label>
-		<input name="item1[code]" type="text" placeholder="Code" class="item_code" data-provide="typeahead" data-itemid='1'/>
-		<input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity" data-itemid='1'/>
+<form method="post" action="/orders/add_process" class="form form-horizontal">
+	<div class="control-group">
+		<label class="control-label">Customer name</label>
+		<input name="customer_name" type="text" data-provide="typeahead" id="customer_name" class="controls"/>
+		<a href="#add_user" role="button" class="btn" data-toggle="modal">Add user</a>
 	</div>
-	<div id="add_item" class="btn">Add item</div>
+
+	<div class="control-group">
+		<label class="control-label">Order ID (from site)</label>
+		<input type="text" name="site_order_id" id="order_id" class="controls"/>
+	</div>
+	<div class="control-group">
+		<label class="control-label">Order status</label>
+		<select name="status" class="controls">
+		<?php foreach ($status as $s) : ?>
+			<option value="<?= $s->id ?>"><?= $s->status ?></option>
+		<?php endforeach; ?>
+		</select>
+	</div>
+	<div class="order_item form-horizontal span12" data-itemid="1">
+		<div class="span3 pull-left">
+			<label>Item 1:</label>
+			<input name="item1[code]" type="text" placeholder="Code" class="item_code input-small" data-provide="typeahead" data-itemid='1'/>
+			<input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity  input-small" data-itemid='1'/>
+		</div>
+	</div>
+	<div class="span12" style="margin: 10px 0px"></div>
+	<br />
+	<div id="add_item" class="btn pull-left">Add item</div>
 
 	<input type="hidden" value="1" name="item_total" id="item_total">
-	<br /><br />
-	<input type="submit" class="btn-primary btn-large" value="Add order"/>
+	<div class="span12" style="margin: 10px 0px;"></div>
+	<input type="submit" class="btn-primary btn-large pull-left" value="Add order"/>
 </form>
 
 <div id="add_user" role="dialog" class="modal hide fade">

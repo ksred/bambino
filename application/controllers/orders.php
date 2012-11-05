@@ -29,7 +29,6 @@ class Orders extends CI_Controller {
 	public function add_process () {
 		$user_id = $this->session->userdata("id");
 		$customer_name = $this->input->post("customer_name");
-		$note = $this->input->post("note");
 		$status = $this->input->post("status");
 		$site_order_id = $this->input->post("site_order_id");
 		$no_of_items = $this->input->post("item_total");
@@ -74,13 +73,6 @@ class Orders extends CI_Controller {
 			$result_item_meta = $this->Model_items->add_item_meta($data);
 			if (!$result_item_meta) die("Died on item meta insert bro");
 		endfor;
-		//Add data to orders_notes table
-		$data = array(
-				"user_id" => $user_id,
-				"order_id" => $order_id,
-				"note" => $this->input->post("note")
-				);
-		$result_notes = $this->Model_orders->add_order_notes($data);
 		//Insert customer order
 		$this->load->model("Model_customers");
 		$customer = $this->Model_customers->search_customer_by_name($user_id, $customer_name)->result();
