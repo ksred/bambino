@@ -1,7 +1,8 @@
 <?php if (!isset($nav)) : $nav = ""; endif; ?>
-<div class="navbar navbar-static-top">
+<div class="navbar pull-right">
 	<div class="navbar-inner">
 		<ul class="nav">
+			<li><a href="/"><img src="<?= BASE_URL ?>assets/img/icon.png"/></a></li>
 			<li class="<?= ($nav == 'orders') ? "active " : "" ?> dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					Orders

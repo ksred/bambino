@@ -162,7 +162,7 @@ class Customers extends CI_Controller {
 	public function view () {
 		$user_id = $this->session->userdata("id");
 		$data['title'] = "Bambino : Customers : View";
-		$data['nav'] = "items";
+		$data['nav'] = "customers";
 		$customers = $this->Model_customers->get_all($user_id);
 		$data['customers'] = $customers->result();
 		$this->load->view("customers/view", $data);
