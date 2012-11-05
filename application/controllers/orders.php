@@ -58,6 +58,8 @@ class Orders extends CI_Controller {
 			//Insert item meta 
 			//Get latest values from db for items
 			$item_details_cr = $this->Model_orders->get_latest_prices($user_id, $item_id[0]->id)->result();
+			if (!isset($item_details_cr[0]->cost)) $item_details_cr[0]->cost = 0;
+			if (!isset($item_details_cr[0]->retail)) $item_details_cr[0]->retail = 0;
 			$data = array (
 					"user_id" => $user_id,
 					"item_id" => $item_id[0]->id,
