@@ -38,7 +38,12 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /* User constants */
 
-define('BASE_URL', 'http://bambino.local/');
+switch (ENVIRONMENT) {
+	case "production":
+		define('BASE_URL', 'http://dash.bambino.io/');
+	default:
+		define('BASE_URL', 'http://bambino.local/');
+}
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
