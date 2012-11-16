@@ -43,6 +43,11 @@
 					<li><a href="/suppliers/view">View</a></li>
 				</ul>
 			</li>
+			<li>
+				<a href="login/logout">
+					<strong>Logout</strong>
+				</a>
+			</li>
 		</ul>
 	</div>
 </div>
