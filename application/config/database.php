@@ -52,7 +52,7 @@ switch (ENVIRONMENT) {
 	case "production":
 		$db['default']['hostname'] = 'localhost';
 		$db['default']['username'] = 'bambi';
-		$db['default']['password'] = 'bambi';
+		$db['default']['password'] = 'bambiIO123';
 		$db['default']['database'] = 'bambino';
 		$db['default']['dbdriver'] = 'mysql';
 		$db['default']['dbprefix'] = '';
