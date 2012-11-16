@@ -13,6 +13,7 @@
 	<?php endforeach; ?>
 	</select>
 	<span class="btn btn-primary update_order" data-orderid="<?= $o->id ?>">Update Status</span>
+	<span class="btn btn-danger delete_order pull-right" data-orderid="<?= $o->id ?>">Delete Order</span>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -25,6 +26,7 @@
 			<th>Details</th>
 			<th>Status</th>
 			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 	</thead>
 		<?php //In an ideal world, none of these model calls would be here. Might send massive nested object/array instead ?>
@@ -40,14 +42,14 @@
 			<td><input type="text" readonly value="<?= (($order_meta[0]->retail - $order_meta[0]->cost) * (int) $order_meta[0]->quantity) ?>" class="input-small" ></td>
 			<td><input name="item_details" type="text" value="<?= $order_meta[0]->details ?>" ></td>
 			<td>
-				<?= "Item status" ?>
+				<input type="checkbox" name="item_status" <?= ($order_meta[0]->item_status == 1) ? "checked=checked" : "" ?>>
+			</td>
 			</td>
 			<td>
-				<?= $o->date ?></td>
-			<td>
+				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>"><i class="icon-ok"></i></span>
 			</td>
 			<td>
-				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>">Update</span>
+				<span class="btn btn-danger delete_order_item" data-order-itemid="<?= $order_meta[0]->id ?>"><i class="icon-remove"></i></span>
 			</td>
 			<?php $site_order_id = $o->site_order_id; ?>
 		</tr>

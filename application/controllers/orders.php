@@ -44,34 +44,36 @@ class Orders extends CI_Controller {
 		for ($i=1; $i <= $no_of_items; $i++) :
 			$item = $this->input->post("item".$i);
 			$code = $item['code'];
-			$quantity = (int) $item['quantity'];
-			$item_id = $this->Model_items->search_code($user_id, $code)->result();
-			$data = array(
-					"user_id" => $user_id,
-					"order_id" => $order_id,
-					"item_id" => $item_id[0]->id
-				);
-			$result_item = $this->Model_orders->add_order_items($data);
-			if (!$result_item) die("Died on an item insert bro");
-			$orders_items_id = $result_item;
-			//Insert item meta 
-			//Get latest values from db for items
-			$item_details_cr = $this->Model_orders->get_latest_prices($user_id, $item_id[0]->id)->result();
-			if (!isset($item_details_cr[0]->cost)) $item_details_cr[0]->cost = 0;
-			if (!isset($item_details_cr[0]->retail)) $item_details_cr[0]->retail = 0;
-			$data = array (
-					"user_id" => $user_id,
-					"item_id" => $item_id[0]->id,
-					"stock_id" => $item_id[0]->stock_id,
-					"order_id" => $order_id,
-					"orders_items_id" => $orders_items_id,
-					"details" => '(none)',
-					"cost" => $item_details_cr[0]->cost,
-					"retail" => $item_details_cr[0]->retail,
-					"quantity" => $quantity,
+			if ($code != '') {
+				$quantity = (int) $item['quantity'];
+				$item_id = $this->Model_items->search_code($user_id, $code)->result();
+				$data = array(
+						"user_id" => $user_id,
+						"order_id" => $order_id,
+						"item_id" => $item_id[0]->id
 					);
-			$result_item_meta = $this->Model_items->add_item_meta($data);
-			if (!$result_item_meta) die("Died on item meta insert bro");
+				$result_item = $this->Model_orders->add_order_items($data);
+				if (!$result_item) die("Died on an item insert bro");
+				$orders_items_id = $result_item;
+				//Insert item meta 
+				//Get latest values from db for items
+				$item_details_cr = $this->Model_orders->get_latest_prices($user_id, $item_id[0]->id)->result();
+				if (!isset($item_details_cr[0]->cost)) $item_details_cr[0]->cost = 0;
+				if (!isset($item_details_cr[0]->retail)) $item_details_cr[0]->retail = 0;
+				$data = array (
+						"user_id" => $user_id,
+						"item_id" => $item_id[0]->id,
+						"stock_id" => $item_id[0]->stock_id,
+						"order_id" => $order_id,
+						"orders_items_id" => $orders_items_id,
+						"details" => '(none)',
+						"cost" => $item_details_cr[0]->cost,
+						"retail" => $item_details_cr[0]->retail,
+						"quantity" => $quantity,
+						);
+				$result_item_meta = $this->Model_items->add_item_meta($data);
+				if (!$result_item_meta) die("Died on item meta insert bro");
+			} //endif code is not empty
 		endfor;
 		//Insert customer order
 		$this->load->model("Model_customers");
@@ -112,12 +114,14 @@ class Orders extends CI_Controller {
 		$retail = $this->input->post('retail');
 		$quantity = $this->input->post('quantity');
 		$details = $this->input->post('details');
+		$item_status = $this->input->post('item_status');
 		$order_item_id = $this->input->post('order_item_id');
 		$user_id = $this->session->userdata("id");
 		$data = array (
 				"cost" => $cost,
 				"retail" => $retail,
 				"details" => $details,
+				"item_status" => $item_status,
 				"quantity" => $quantity
 		);
 		$result = $this->Model_orders->update_item_meta($user_id, $order_item_id, $data);

@@ -105,10 +105,16 @@ $(document).ready( function() {
 		var quantity = $(this).parent().parent().find('[name="item_quantity"]').val();
 		var details = $(this).parent().parent().find('[name="item_details"]').val();
 		var order_item_id = $(this).attr('data-order-itemid');
+		var item_status;
+		if ($(this).parent().parent().find('[name="item_status"]').is(':checked')) {
+			item_status = 1;
+		} else {
+			item_status = 0;
+		}
 		$.ajax({
 			url: '/orders/update_item_process',
 			type: 'POST',
-			data: 'cost=' + cost + '&retail=' + retail + '&quantity=' + quantity + '&details=' + details + '&order_item_id=' + order_item_id,
+			data: 'cost=' + cost + '&retail=' + retail + '&quantity=' + quantity + '&details=' + details + '&order_item_id=' + order_item_id + '&item_status=' + item_status,
 			dataType: 'JSON',
 			async: false,
 			success: function(data) {

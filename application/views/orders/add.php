@@ -6,7 +6,7 @@
 	<div class="control-group">
 		<label class="control-label">Customer name</label>
 		<input name="customer_name" type="text" data-provide="typeahead" id="customer_name" class="controls"/>
-		<a href="#add_user" role="button" class="btn" data-toggle="modal">Add user</a>
+		<a href="#add_user" role="button" class="btn" data-toggle="modal">Add customer</a>
 	</div>
 
 	<div class="control-group">
@@ -24,8 +24,7 @@
 	<div class="order_item form-horizontal span12" data-itemid="1">
 		<div class="span3 pull-left">
 			<label>Item 1:</label>
-			<input name="item1[code]" type="text" placeholder="Code" class="item_code input-small" data-provide="typeahead" data-itemid='1'/>
-			<input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity  input-small" data-itemid='1'/>
+			<input name="item1[code]" type="text" placeholder="Code" class="item_code input-small" data-provide="typeahead" data-itemid='1'/><input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity  input-small" data-itemid='1'/>
 		</div>
 	</div>
 	<div class="span12" style="margin: 10px 0px"></div>
@@ -40,7 +39,7 @@
 <div id="add_user" role="dialog" class="modal hide fade">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3>Add a user</h3>
+		<h3>Add a customer</h3>
 	</div>
 	<div class="modal-body">
 		<?php $this->load->view("_template/add_customer.php"); ?>

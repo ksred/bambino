@@ -73,6 +73,10 @@ body {
 	background-repeat: repeat;
 }
 
+.btn {
+	font-weight: bold;
+}
+
 .container {
 	background: rgba(255, 255, 255, 0.7);
 	border-radius: 0px 0px 10px 10px;
