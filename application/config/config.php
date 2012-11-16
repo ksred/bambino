@@ -14,7 +14,12 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'bambino.local';
+switch (ENVIRONMENT) {
+	case "production":
+		$config['base_url']	= 'dash.bambino.io';
+	default:
+		$config['base_url']	= 'bambino.local';
+}
 
 /*
 |--------------------------------------------------------------------------
