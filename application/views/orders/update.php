@@ -13,7 +13,7 @@
 	<?php endforeach; ?>
 	</select>
 	<span class="btn btn-primary update_order" data-orderid="<?= $o->id ?>">Update Status</span>
-	<span class="btn btn-danger delete_order pull-right" data-orderid="<?= $o->id ?>">Delete Order</span>
+	<a href="#delete_order" class="btn btn-danger delete_order pull-right" data-orderid="<?= $o->id ?>" data-toggle="modal">Delete Order</a>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -33,7 +33,7 @@
 		<?php $order_items = $this->Model_orders->items_per_order($o->user_id, $o->id)->result(); ?>
 		<?php foreach($order_items as $oi) : ?>
 		<?php $order_meta = $this->Model_orders->item_meta_orders_items($o->user_id, $oi->oi_id)->result(); ?>
-		<tr>
+		<tr data-row-order-itemid="<?= $oi->oi_id ?>">
 			<td><?= $oi->stock_id ?></td>
 			<td><?= $oi->description ?></td>
 			<td><input name="item_cost" type="text" value="<?= $order_meta[0]->cost ?>" class="input-small" ></td>
@@ -49,12 +49,36 @@
 				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>"><i class="icon-ok"></i></span>
 			</td>
 			<td>
-				<span class="btn btn-danger delete_order_item" data-order-itemid="<?= $order_meta[0]->id ?>"><i class="icon-remove"></i></span>
+				<a href="#delete_order_item" data-toggle="modal" class="btn btn-danger delete_order_item delete_item_button" data-itemid="<?= $oi->item_id ?>" data-order-itemid="<?= $oi->oi_id ?>"><i class="icon-remove"></i></a>
 			</td>
 			<?php $site_order_id = $o->site_order_id; ?>
 		</tr>
 		<?php endforeach; ?>
 </table>
 <?php endforeach; ?>
+
+<div id="delete_order" role="dialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Delete order</h3>
+	</div>
+	<div style="padding:10px">Are you sure you want to delete this order?</div>
+	<div class="modal-footer">
+		<button id="delete_order_submit" class="btn btn-danger" data-orderid="<?= $o->id ?>">Delete</button>
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+	</div>
+</div>
+
+<div id="delete_order_item" role="dialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Delete item</h3>
+	</div>
+	<div style="padding:10px">Are you sure you want to delete this item from this order?</div>
+	<div class="modal-footer">
+		<button id="delete_order_item_submit" class="btn btn-danger" data-orderid="<?= $o->id ?>" data-itemid="" data-order-itemid="">Delete</button>
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+	</div>
+</div>
 
 <?php $this->load->view("_template/footer.php"); ?>

@@ -22,14 +22,14 @@
 		</select>
 	</div>
 	<div class="order_item form-horizontal span12" data-itemid="1">
+		<strong>Items</strong>
+		<div id="add_item" class="btn">+</div>
+		<div class="span12" style="margin: 10px 0px"></div>
 		<div class="span3 pull-left">
 			<label>Item 1:</label>
 			<input name="item1[code]" type="text" placeholder="Code" class="item_code input-small" data-provide="typeahead" data-itemid='1'/><input name="item1[quantity]" type="number" placeholder="Quantity" class="item_quantity  input-small" data-itemid='1'/>
 		</div>
 	</div>
-	<div class="span12" style="margin: 10px 0px"></div>
-	<br />
-	<div id="add_item" class="btn pull-left">Add item</div>
 
 	<input type="hidden" value="1" name="item_total" id="item_total">
 	<div class="span12" style="margin: 10px 0px;"></div>

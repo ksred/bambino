@@ -166,5 +166,21 @@ class Orders extends CI_Controller {
 		$this->load->view("orders/update", $data);
 	}
 
+	function delete_process () {
+		$order_id = $this->input->post('orderid');
+		$user_id = $this->session->userdata('id');
+		$result = $this->Model_orders->delete_order($user_id, $order_id);
+		echo $result;
+	}
+
+	function delete_item_process () {
+		$order_id = $this->input->post('orderid');
+		$item_id = $this->input->post('itemid');
+		$order_item_id = $this->input->post('orderitemid');
+		$user_id = $this->session->userdata('id');
+		$result = $this->Model_orders->delete_order_item($user_id, $order_id, $item_id, $order_item_id);
+		echo $result;
+	}
+
 }
 

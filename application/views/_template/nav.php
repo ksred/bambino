@@ -1,5 +1,5 @@
 <?php if (!isset($nav)) : $nav = ""; endif; ?>
-<div class="navbar pull-right">
+<div class="navbar pull-right navbar-inverse">
 	<div class="navbar-inner">
 		<ul class="nav">
 			<li><a href="/"><img src="<?= BASE_URL ?>assets/img/icon.png"/></a></li>

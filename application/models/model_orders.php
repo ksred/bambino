@@ -60,7 +60,7 @@ class Model_orders extends CI_Model
 	}
 
 	function items_per_order ($user_id, $order_id) {
-		$this->db->select('orders_items.id as oi_id, items_meta.quantity as quantity, items.description as description, items.stock_id as stock_id');
+		$this->db->select('orders_items.id as oi_id, items_meta.quantity as quantity, items.description as description, items.stock_id as stock_id, orders_items.item_id as item_id');
 		$this->db->from('orders_items');
 		$this->db->join('items', 'items.id = orders_items.item_id');
 		$this->db->join('items_meta', 'orders_items.id = items_meta.orders_items_id');
@@ -153,5 +153,24 @@ class Model_orders extends CI_Model
         return $result;
     }
 
+    function delete_order($user_id, $order_id) {
+        $data = array("user_id" => $user_id, "id" => $order_id);
+        $result_o = $this->db->delete("orders", $data);
+        $data = array("user_id" => $user_id, "order_id" => $order_id);
+        $result_oi = $this->db->delete("orders_items", $data);
+        $result_on = $this->db->delete("orders_notes", $data);
+        //Make sure all were successful
+        if (($result_o == 1) && ($result_oi == 1) && ($result_on == 1)) {
+        	return 1;
+        } else {
+        	return 0;
+        }
+    }
+
+    function delete_order_item($user_id, $order_id, $item_id, $order_item_id) {
+        $data = array("user_id" => $user_id, "order_id" => $order_id, "item_id" => $item_id, "id" => $order_item_id);
+        $result = $this->db->delete("orders_items", $data);
+		return $result;
+    }
 }
 ?>

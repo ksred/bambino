@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="<?= BASE_URL ?>assets/css/bootstrap.css" rel="stylesheet">
+    <link href="<?= BASE_URL ?>assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="<?= BASE_URL ?>assets/css/bambino.css" rel="stylesheet">
 

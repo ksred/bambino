@@ -133,6 +133,68 @@ $(document).ready( function() {
 		})
 	});
 
-	//Modal for adding user
+	//Delete order
+	$('#delete_order_submit').click(function () {
+		var order_id = $(this).attr('data-orderid');
+		$.ajax({
+			url: '/orders/delete_process',
+			type: 'POST',
+			data: 'orderid=' + order_id,
+			dataType: 'JSON',
+			async: false,
+			success: function(data) {
+				if (data == 1) {
+					window.location.replace("/orders/view");
+					$("#success").fadeIn();
+					setTimeout(function() {
+						$("#success").fadeOut();
+						}, 10000);
+				} else {
+					$("#failure").fadeIn();
+					setTimeout(function() {
+						$("#failure").fadeOut();
+						}, 10000);
+				}
+			}
+		})
+	});
+
+	$('.delete_item_button').click( function() {
+		var item_id = $(this).attr('data-itemid');
+		$('#delete_order_item_submit').attr('data-itemid', item_id);
+		var order_item_id = $(this).attr('data-order-itemid');
+		$('#delete_order_item_submit').attr('data-order-itemid', order_item_id);
+	});
+	$('#delete_order_item_submit').click(function () {
+		var order_id = $(this).attr('data-orderid');
+		var item_id = $(this).attr('data-itemid');
+		var order_item_id = $(this).attr('data-order-itemid');
+		$.ajax({
+			url: '/orders/delete_item_process',
+			type: 'POST',
+			data: 'orderid=' + order_id + '&itemid=' + item_id + '&orderitemid=' + order_item_id,
+			dataType: 'JSON',
+			async: false,
+			success: function(data) {
+				if (data == 1) {
+					$('#delete_order_item').modal('hide');
+					$('[data-row-order-itemid="'+order_item_id+'"]').fadeOut(1000);
+					$("#success").fadeIn();
+					setTimeout(function() {
+						$("#success").fadeOut();
+						}, 10000);
+				} else {
+					$("#failure").fadeIn();
+					setTimeout(function() {
+						$("#failure").fadeOut();
+						}, 10000);
+				}
+			}
+		})
+	});
+
+	//Modals
 	$("#add_user").modal({ keyboard: true, show: false});
+	$("#delete_order").modal({ keyboard: true, show: false});
+	$("#delete_order_item").modal({ keyboard: true, show: false});
 });

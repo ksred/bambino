@@ -59,7 +59,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'SansumiExtraBoldRegular', Arial, serif;
+	/*font-family: 'SansumiExtraBoldRegular', Arial, serif;*/
 	text-transform: uppercase;
 }
 
@@ -68,9 +68,10 @@ h2 {
 }
 
 body {
-	font-family: 'ExistenceLight', Arial, serif;
+	/*font-family: 'ExistenceLight', Arial, serif;
 	background-image: url('../img/diamond_upholstery.png');
-	background-repeat: repeat;
+	background-repeat: repeat;*/
+	background-color: #fffafa;
 }
 
 .btn {
@@ -79,9 +80,6 @@ body {
 
 .container {
 	background: rgba(255, 255, 255, 0.7);
-	border-radius: 0px 0px 10px 10px;
-	padding: 10px;
-	box-shadow: 0px 0px 5px 0px;
 }
 
 .spacer {
