@@ -6,14 +6,14 @@
 <h3>Customer: <?= $customer[0]->name ?></h3>
 <?php $site_order_id=''; ?>
 <?php foreach ($orders as $o) : ?>
-<h4>Order number: <?= $o->site_order_id ?></h4>
+<a href="/orders/update/<?= $o->id ?>" class="btn btn-primary">Order number: <?= $o->site_order_id ?></a>
 	<label>Order status:</label>
 	<select class="order_status">
 	<?php foreach ($status_all as $s) :?>
 		<option value="<?= $s->id ?>" <?= ($s->id == $o->status) ? "selected=selected" : "" ?>><?= $s->status ?></option>
 	<?php endforeach; ?>
 	</select>
-	<span class="btn btn-primary update_order" data-orderid="<?= $o->id ?>">Update Status</span>
+	<span class="btn btn-primary update_order" data-orderid="<?= $o->id ?>"><i class="icon-ok"></i></span>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -48,7 +48,7 @@
 			<td>
 			</td>
 			<td>
-				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>">Update</span>
+				<span class="btn btn-primary update_order_item" data-order-itemid="<?= $order_meta[0]->id ?>"><i class="icon-ok"></i></span>
 			</td>
 			<?php $site_order_id = $o->site_order_id; ?>
 		</tr>

@@ -99,7 +99,7 @@ $(document).ready( function() {
 	});
 
 	//Updating order item
-	$('.update_order_item').click(function () {
+	$('.update_order_item').live('click', function () {
 		var cost = $(this).parent().parent().find('[name="item_cost"]').val();
 		var retail = $(this).parent().parent().find('[name="item_retail"]').val();
 		var quantity = $(this).parent().parent().find('[name="item_quantity"]').val();
@@ -159,13 +159,13 @@ $(document).ready( function() {
 		})
 	});
 
-	$('.delete_item_button').click( function() {
+	$('.delete_item_button').live('click', function() {
 		var item_id = $(this).attr('data-itemid');
 		$('#delete_order_item_submit').attr('data-itemid', item_id);
 		var order_item_id = $(this).attr('data-order-itemid');
 		$('#delete_order_item_submit').attr('data-order-itemid', order_item_id);
 	});
-	$('#delete_order_item_submit').click(function () {
+	$('#delete_order_item_submit').live('click', function () {
 		var order_id = $(this).attr('data-orderid');
 		var item_id = $(this).attr('data-itemid');
 		var order_item_id = $(this).attr('data-order-itemid');
@@ -193,8 +193,41 @@ $(document).ready( function() {
 		})
 	});
 
+	$('#add_item_order_submit').click(function () {
+		var item_code = $(this).parent().parent().find('[name="itemadd[code]"]').val();
+		var item_quantity = $(this).parent().parent().find('[name="itemadd[quantity]"]').val();
+		var order_id = $(this).attr('data-orderid');
+		if (item_quantity == '') {
+			$('.error-fill-in-fields').fadeIn();
+		}
+		$.ajax({
+			url: '/orders/add_item_order_process',
+			type: 'POST',
+			data: 'orderid=' + order_id + '&itemcode=' + item_code + '&itemquantity=' + item_quantity,
+			dataType: 'JSON',
+			async: false,
+			success: function(data) {
+				if (data.item_id != '') {
+					$('#add_item_order').modal('hide');
+					$("#success").fadeIn();
+					setTimeout(function() {
+						$("#success").fadeOut();
+						}, 10000);
+					$('tbody').append('<tr data-row-order-itemid="'+data.order_item_id+'"><td>'+data.stock_id+'</td><td>'+data.item_desc+'</td><td><input class="input-small" type="text" value="'+data.cost+'" name="item_cost"></td><td><input class="input-small" type="text" value="'+data.retail+'" name="item_retail"></td><td><input class="input-small" type="text" value="'+data.quantity+'" name="item_quantity"></td><td><input class="input-small" type="text" value="'+((data.retail-data.cost)*data.quantity)+'" readonly=""></td><td><input type="text" value="'+data.details+'" name="item_details"></td><td><input type="checkbox" name="item_status"></td><td><span class="btn btn-primary update_order_item" data-order-itemid="'+data.order_id+'"><i class="icon-ok"></i></span></td><td><a class="btn btn-danger delete_order_item delete_item_button" data-order-itemid="'+data.order_id+'" data-itemid="1" data-toggle="modal" href="#delete_order_item"><i class="icon-remove"></i></a></td>');
+				} else {
+					$('#delete_order_item').modal('hide');
+					$("#failure").fadeIn();
+					setTimeout(function() {
+						$("#failure").fadeOut();
+						}, 10000);
+				}
+			}
+		})
+	});
+
 	//Modals
 	$("#add_user").modal({ keyboard: true, show: false});
 	$("#delete_order").modal({ keyboard: true, show: false});
 	$("#delete_order_item").modal({ keyboard: true, show: false});
+	$("#add_item_order").modal({ keyboard: true, show: false});
 });

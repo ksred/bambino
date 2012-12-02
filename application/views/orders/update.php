@@ -14,6 +14,7 @@
 	</select>
 	<span class="btn btn-primary update_order" data-orderid="<?= $o->id ?>">Update Status</span>
 	<a href="#delete_order" class="btn btn-danger delete_order pull-right" data-orderid="<?= $o->id ?>" data-toggle="modal">Delete Order</a>
+	<a class="order-add-item btn pull-right" data-toggle="modal" href="#add_item_order"><i class="icon-plus-sign"></i> Add Item</a>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -77,6 +78,23 @@
 	<div style="padding:10px">Are you sure you want to delete this item from this order?</div>
 	<div class="modal-footer">
 		<button id="delete_order_item_submit" class="btn btn-danger" data-orderid="<?= $o->id ?>" data-itemid="" data-order-itemid="">Delete</button>
+		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
+	</div>
+</div>
+
+<div id="add_item_order" role="dialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Add Item</h3>
+	</div>
+	<div style="padding:10px">Add an item to your order</div>
+	<div class="alert alert-error error-fill-in-fields">Please fill in all fields</div>
+	<div class="span6">
+		<label>Item 1:</label>
+		<input name="itemadd[code]" type="text" placeholder="Code" class="item_code_add input-small" data-provide="typeahead" data-itemid='1'/><input name="itemadd[quantity]" type="number" placeholder="Quantity" class="item_quantity_add input-small"/>
+	</div>
+	<div class="modal-footer">
+		<button id="add_item_order_submit" class="btn btn-danger" data-orderid="<?= $o->id ?>" >Add</button>
 		<a href="#" class="btn" data-dismiss="modal">Cancel</a>
 	</div>
 </div>

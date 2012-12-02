@@ -182,5 +182,48 @@ class Orders extends CI_Controller {
 		echo $result;
 	}
 
+	function add_item_order_process () {
+		$user_id = $this->session->userdata('id');
+		$order_id = $this->input->post('orderid');
+		$item_code = $this->input->post("itemcode");
+		$item_quantity = $this->input->post("itemquantity");
+		if ($item_code != '') {
+			$quantity = (int) $item_quantity;
+			$item_id = $this->Model_items->search_code($user_id, $item_code)->result();
+			$data = array(
+					"user_id" => $user_id,
+					"order_id" => $order_id,
+					"item_id" => $item_id[0]->id
+				);
+			$result_item = $this->Model_orders->add_order_items($data);
+			if (!$result_item) die("Died on an item insert bro");
+			$orders_items_id = $result_item;
+			//Insert item meta 
+			//Get latest values from db for items
+			$item_details_cr = $this->Model_orders->get_latest_prices($user_id, $item_id[0]->id)->result();
+			if (!isset($item_details_cr[0]->cost)) $item_details_cr[0]->cost = 0;
+			if (!isset($item_details_cr[0]->retail)) $item_details_cr[0]->retail = 0;
+			$data = array (
+					"user_id" => $user_id,
+					"item_id" => $item_id[0]->id,
+					"stock_id" => $item_id[0]->stock_id,
+					"order_id" => $order_id,
+					"orders_items_id" => $orders_items_id,
+					"details" => '(none)',
+					"cost" => $item_details_cr[0]->cost,
+					"retail" => $item_details_cr[0]->retail,
+					"quantity" => $quantity,
+					);
+			$result_item_meta = $this->Model_items->add_item_meta($data);
+			if (!$result_item_meta) die("Died on item meta insert bro");
+			$item_details = $this->Model_items->view($user_id, $item_id[0]->id)->result();
+			$data['item_desc'] = $item_details[0]->description;
+			$data['order_item_id'] = $result_item_meta;
+			$data['quantity'] = $item_quantity;
+			$result = json_encode($data);
+			echo $result;
+		}
+	}
+
 }
 

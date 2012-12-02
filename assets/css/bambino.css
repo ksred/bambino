@@ -100,3 +100,9 @@ body {
 .nav img {
 	height: 20px;
 }
+.typeahead {
+	z-index:9999;
+}
+.error-fill-in-fields {
+	display: none;
+}
