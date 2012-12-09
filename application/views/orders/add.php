@@ -1,8 +1,9 @@
 <?php $this->load->view("_template/header.php"); ?>
 
 <h2>Add an order</h2>
+<div class="alert alert-error hidden" id="order_error"></div>
 
-<form method="post" action="/orders/add_process" class="form form-horizontal">
+<form method="post" action="/orders/add_process" class="form form-horizontal" id="order_add_form">
 	<div class="control-group">
 		<label class="control-label">Customer name</label>
 		<input name="customer_name" type="text" data-provide="typeahead" id="customer_name" class="controls"/>
@@ -33,7 +34,7 @@
 
 	<input type="hidden" value="1" name="item_total" id="item_total">
 	<div class="span12" style="margin: 10px 0px;"></div>
-	<input type="submit" class="btn-primary btn-large pull-left" value="Add order"/>
+	<input type="button" class="btn-primary btn-large pull-left" value="Add order" id="order_add"/>
 </form>
 
 <div id="add_user" role="dialog" class="modal hide fade">

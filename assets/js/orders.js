@@ -1,5 +1,31 @@
 $(document).ready( function() {
 
+	$('#order_add').click( function () {
+		$('#order_error').addClass('hidden').html();
+		var customer_name = $('#customer_name').val();
+		var site_order_id = $('#order_id').val();
+		var item_total = $('#item_total').val();
+		var query = "";
+		for (var i = 1; i <= item_total; i = i + 1) {
+			query = query + '&item' + i + '=' + $('[name="item'+i+'[code]"]').val();	
+		}
+		$.ajax({
+			url: '/orders/check_order_fields',
+			type: 'POST',
+			data: 'customer_name=' + customer_name + '&site_order_id=' + site_order_id + '&item_total=' + item_total + query,
+			dataType: 'JSON',
+			async: false,
+			success: function(data) {
+				if (data != 0) {
+					$('#order_error').removeClass('hidden').html(data).fadeIn();
+					return;
+				} else {
+					$('#order_add_form').submit();
+				}
+			}
+		})
+	});
+
 	var item_id = $('.order_item').attr('data-itemid');
 	$('#add_item').click( function() {
 		item_id = parseInt(item_id) + 1;

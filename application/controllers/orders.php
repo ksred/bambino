@@ -89,6 +89,34 @@ class Orders extends CI_Controller {
 		redirect(BASE_URL."orders/view");
 	}
 
+	function check_order_fields () {
+		$result = "";
+		$user_id = $this->session->userdata("id");
+		//Check if customer exists
+		$customer_name = $this->input->post("customer_name");
+		$this->load->Model('Model_customers');
+		$customer_id = $this->Model_customers->search_name($user_id, $customer_name);
+		if ($customer_id->num_rows() == 0) $result .= "Customer does not exist. Please choose an exisiting customer, or create a new customer.<br />";
+		//Check if Site Order Id exists (must be unique)
+		$site_order_id = $this->input->post("site_order_id");
+		$site_order_exists = $this->Model_orders->search_id($user_id, $site_order_id);
+		if ($site_order_exists->num_rows() > 0) $result .= "Site order id already exists. Please use a unique order number.<br />";
+		//Check item exists
+		$no_of_items = $this->input->post("item_total");
+		for ($i=1; $i <= $no_of_items; $i++) :
+			$item = $this->input->post("item".$i);
+			if ($item != '') {
+				$item_id = $this->Model_items->search_code($user_id, $item)->result();
+				if (!$item_id) $result .= "<strong>$item</strong> Item does not exist, please choose an existing item or add a new one.";
+			} //endif code is not empty
+		endfor;
+		if ($result == "") {
+			echo 0;
+		} else {
+			echo json_encode($result);
+		}
+	}
+
 	function view () {
 		$user_id = $this->session->userdata("id");
 		$orders = $this->Model_orders->orders_per_user($user_id);
