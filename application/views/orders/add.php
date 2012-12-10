@@ -25,6 +25,7 @@
 	<div class="order_item form-horizontal span12" data-itemid="1">
 		<strong>Items</strong>
 		<div id="add_item" class="btn">+</div>
+		<a href="#create_item" role="button" class="btn" data-toggle="modal">Create item</a>
 		<div class="span12" style="margin: 10px 0px"></div>
 		<div class="span3 pull-left">
 			<label>Item 1:</label>
@@ -44,6 +45,19 @@
 	</div>
 	<div class="modal-body">
 		<?php $this->load->view("_template/add_customer.php"); ?>
+	</div>
+	<div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</div>
+</div>
+
+<div id="create_item" role="dialog" class="modal hide fade">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Create Item</h3>
+	</div>
+	<div class="modal-body">
+		<?php $this->load->view("_template/add_item.php"); ?>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn" data-dismiss="modal">Close</a>
