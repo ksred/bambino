@@ -253,6 +253,7 @@ $(document).ready( function() {
 
 	//Modals
 	$("#add_user").modal({ keyboard: true, show: false});
+	$("#create_item").modal({ keyboard: true, show: false});
 	$("#delete_order").modal({ keyboard: true, show: false});
 	$("#delete_order_item").modal({ keyboard: true, show: false});
 	$("#add_item_order").modal({ keyboard: true, show: false});
